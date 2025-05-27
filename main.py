@@ -12,7 +12,6 @@ if __name__ == "__main__":
                 print_color(31, str(error))
                 continue
             except KeyboardInterrupt:
-                sys.stdout.flush()
                 raise SystemExit
             try:
                 venv.execute(parsed)

@@ -37,6 +37,7 @@ class OrangeVEnv:
         arg_string = "".join(arg)
         exec(f"{self.module.__name__}.{parsed[0]}({arg_string})")
     def help(self):
+        """Show help"""
         global command_doc
         for cmd in self.commands:
             if cmd == "re" or cmd == "os" or cmd == "venv" or cmd == "Reader": continue

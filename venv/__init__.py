@@ -2,7 +2,6 @@ import commands
 from platform import uname
 from getpass import getuser
 from os import getcwd
-import sys
 
 def print_color(color: int|str, text):
     print(f"\033[{color}m" + text + "\033[0m")
@@ -16,6 +15,7 @@ class CommandDecodeError(Exception): pass
 
 class OrangeVEnv:
     def __init__(self, cmd_module):
+
         self.module = cmd_module
         self.commands = list()
         self.module.help = self.help
@@ -39,7 +39,7 @@ class OrangeVEnv:
     def help(self):
         global command_doc
         for cmd in self.commands:
-            if cmd == "re" or cmd == "os": continue
+            if cmd == "re" or cmd == "os" or cmd == "venv" or cmd == "Reader": continue
             exec(f"global command_doc; command_doc = {self.module.__name__}.{cmd}.__doc__")
             print_color(34, f"{cmd}{(30 - len(cmd)) * "."}{command_doc}")
         del command_doc

@@ -1,5 +1,11 @@
 import os, re
 
+def echo(*towrite):
+    """Write text to console"""
+    fulloutput = str()
+    for split in towrite:
+        fulloutput += (split + " ")
+    print(fulloutput)
 
 def system(*any):
     """Info about system"""
@@ -62,6 +68,9 @@ def clear(*any):
         os.system("cls")
     else:
         os.system("clear")
+
+def export(name, value):
+    exec(f"global {name}; {name} = {value}")
 
 def help():
     pass

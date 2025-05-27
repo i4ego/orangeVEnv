@@ -1,11 +1,10 @@
 import os, re
+import venv
+from reader import Reader
 
 def echo(*towrite):
     """Write text to console"""
-    fulloutput = str()
-    for split in towrite:
-        fulloutput += (split + " ")
-    print(fulloutput)
+    print(" ".join(towrite))
 
 def system(*any):
     """Info about system"""
@@ -23,10 +22,7 @@ def pwd(*any):
 
 def ls(*any):
     """All directories in this directory"""
-    dirs = str()
-    for dir in os.listdir():
-        dirs += dir + " "
-    print(dirs)
+    print(" ".join(os.listdir()))
 
 def pid(*any):
     """PID of this process"""
@@ -56,24 +52,27 @@ def remove(name):
 
 def execute(*command):
     """Run command in Terminal"""
-    command_str = str()
-    for split in command:
-        command_str += split + " "
-    os.system(command_str)
+    os.system(" ".join(command))
 
 
 def clear(*any):
     """Clear console"""
-    if os.uname().sysname == "Windows":
-        os.system("cls")
-    else:
-        os.system("clear")
-
-def export(name, value):
-    exec(f"global {name}; {name} = {value}")
+    print("\033[H\033[J", end="")
 
 def help():
     pass
+
+
+def file(name):
+    """Open .orange file"""
+    if re.match(r'.*\.orange$', name):
+        if name in os.listdir():
+            reader = Reader(venv.OrangeVEnv(venv.commands))
+            reader.read(name)
+        else:
+            raise FileExistsError(f"invalid file! '{name}'")
+    else:
+        raise NameError(f"not a orangeVEnv file! '{name}' format: <name>.orange")
 
 def exit(*any):
     """Exit from VEnv"""

@@ -38,8 +38,8 @@ class OrangeVEnv:
         exec(f"{self.module.__name__}.{parsed[0]}({arg_string})")
     def help(self):
         global command_doc
-        print("???")
         for cmd in self.commands:
             if cmd == "re" or cmd == "os": continue
             exec(f"global command_doc; command_doc = {self.module.__name__}.{cmd}.__doc__")
             print_color(34, f"{cmd}{(30 - len(cmd)) * "."}{command_doc}")
+        del command_doc
